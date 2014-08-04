@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: salt_solo
+  formula: influxdb
+  pillars-from-files:
+    influxdb.sls: pillar.example
+  pillars:
+    top.sls:
+      base:
+        "*":
+          - influxdb
+  state_top:
+    base:
+      "*":
+        - influxdb
+platforms:
+  - name: ubuntu-14.04-i386
+
+suites:
+  - name: default
