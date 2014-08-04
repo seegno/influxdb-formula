@@ -1,0 +1,8 @@
+# Temporary files.
+*.swp
+*.swo
+
+# Vagrant directory
+.vagrant
+.kitchen/
+.kitchen.local.yml
