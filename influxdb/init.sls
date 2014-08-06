@@ -16,3 +16,15 @@ install_influxdb:
       - file: influxdb_package
     - watch:
       - file: influxdb_package
+
+start_influxdb:
+  service:
+    - running
+    - name: influxdb
+    - enable: True
+    - watch:
+      - pkg: install_influxdb
+      - file: influxdb_package
+    - require:
+      - pkg: install_influxdb
+      - file: influxdb_package
