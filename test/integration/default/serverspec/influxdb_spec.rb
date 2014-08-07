@@ -8,11 +8,9 @@ describe service("influxdb") do
   it { should be_running }
 end
 
-describe "InfluxDB Server" do
-
-  it "has a daemon runing" do
-    expect(service("influxdb")).to be_running
+influxdb_ports = [ 8083, 8086, 8099, 8090 ]
+for influxdb_port in influxdb_ports do
+  describe port(8083) do
+    it {should be_listening}
   end
-
 end
-
