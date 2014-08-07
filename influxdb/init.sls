@@ -25,6 +25,16 @@ influxdb_confdir:
     - gropp: root
     - mode: 755
 
+influxdb_config:
+  file:
+    - managed
+    - name: /etc/influxdb/config.toml
+    - source: salt://influxdb/templates/config.toml.jinja
+    - owner: root
+    - gropp: root
+    - mode: 644
+    - template: jinja
+
 start_influxdb:
   service:
     - running
@@ -33,6 +43,7 @@ start_influxdb:
     - watch:
       - pkg: install_influxdb
       - file: influxdb_package
+      - file: influxdb_config
     - require:
       - pkg: install_influxdb
       - file: influxdb_package
