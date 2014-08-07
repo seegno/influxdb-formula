@@ -17,6 +17,14 @@ install_influxdb:
     - watch:
       - file: influxdb_package
 
+influxdb_confdir:
+  file:
+    - directory
+    - name: /etc/influxdb
+    - owner: root
+    - gropp: root
+    - mode: 755
+
 start_influxdb:
   service:
     - running
