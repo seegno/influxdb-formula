@@ -7,7 +7,7 @@ influxdb_package:
     - source: http://s3.amazonaws.com/influxdb/{{ map["package"] }}
     - source_hash: md5={{ map["md5"] }}
 
-install_influxdb:
+influxdb_install:
   pkg:
     - installed
     - sources:
@@ -22,7 +22,7 @@ influxdb_confdir:
     - directory
     - name: /etc/influxdb
     - owner: root
-    - gropp: root
+    - group: root
     - mode: 755
 
 influxdb_config:
@@ -31,19 +31,19 @@ influxdb_config:
     - name: /etc/influxdb/config.toml
     - source: salt://influxdb/templates/config.toml.jinja
     - owner: root
-    - gropp: root
+    - group: root
     - mode: 644
     - template: jinja
 
-start_influxdb:
+influxdb_start:
   service:
     - running
     - name: influxdb
     - enable: True
     - watch:
-      - pkg: install_influxdb
+      - pkg: influxdb_install
       - file: influxdb_package
       - file: influxdb_config
     - require:
-      - pkg: install_influxdb
+      - pkg: influxdb_install
       - file: influxdb_package

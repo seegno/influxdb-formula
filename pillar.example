@@ -1,0 +1,14 @@
+# vi: set ft=yaml :
+influxdb:
+  bind-address: 0.0.0.0
+  logging:
+    level: info
+    file: /var/log/influxdb/influxdb.log
+  admin:
+    port: 8083
+  api:
+    port: 8086
+  raft:
+    port: 8090
+  protobuf:
+    port: 8099
