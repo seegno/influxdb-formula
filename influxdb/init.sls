@@ -39,10 +39,11 @@ influxdb_init:
   file:
     - managed
     - name: /etc/init.d/influxdb
-    - source: salt://influxdb/files/influxdb.service
+    - source: salt://influxdb/templates/influxdb.service.jinja
     - owner: root
     - group: root
     - mode: 755
+    - template: jinja
 
 influxdb_user:
   user:
@@ -55,10 +56,22 @@ influxdb_user:
 influxdb_log:
   file:
     - directory
-    - name: /var/log/influxdb
+    - name: {{ pillar["influxdb"]["logging"]["directory"] }}
     - user: influxdb
     - group: influxdb
     - mode: 755
+
+influxdb_logrotate:
+  file:
+    - managed
+    - name: /etc/logrotate.d/influxdb
+    - source: salt://influxdb/templates/logrotate.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch:
+      - file: influxdb_log
 
 influxdb_start:
   service:
