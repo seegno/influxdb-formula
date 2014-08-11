@@ -35,6 +35,16 @@ influxdb_config:
     - mode: 644
     - template: jinja
 
+influxdb_init:
+  file:
+    - managed
+    - name: /etc/init.d/influxdb
+    - source: salt://influxdb/files/influxdb.service
+    - owner: root
+    - group: root
+    - mode: 755
+
+
 influxdb_start:
   service:
     - running
