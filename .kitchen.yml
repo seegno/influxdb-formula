@@ -18,6 +18,7 @@ provisioner:
     base:
       "*":
         - influxdb
+        - influxdb.cli
 
 platforms:
   - name: ubuntu-14.04-i386
