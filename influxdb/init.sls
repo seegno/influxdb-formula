@@ -44,6 +44,13 @@ influxdb_init:
     - group: root
     - mode: 755
 
+influxdb_user:
+  user:
+    - present
+    - name: influxdb
+    - fullname: InfluxDB Service User
+    - shell: /bin/false
+    - home: /opt/influxdb
 
 influxdb_start:
   service:
