@@ -3,7 +3,7 @@ influxdb:
   bind-address: 0.0.0.0
   logging:
     level: info
-    file: /var/log/influxdb/influxdb.log
+    directory: /var/log/influxdb
   admin:
     port: 8083
   api:
