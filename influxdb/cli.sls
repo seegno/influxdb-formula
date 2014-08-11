@@ -11,4 +11,4 @@ cli_gem:
     - installed
     - name: influxdb-cli
     - require:
-        pkg: cli_dependencies
+        - pkg: cli_dependencies
