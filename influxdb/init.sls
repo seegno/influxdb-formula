@@ -56,7 +56,7 @@ influxdb_user:
 influxdb_log:
   file:
     - directory
-    - name: /var/log/influxdb
+    - name: {{ pillar["influxdb"]["logging"]["directory"] }}
     - user: influxdb
     - group: influxdb
     - mode: 755
