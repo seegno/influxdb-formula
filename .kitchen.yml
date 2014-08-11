@@ -2,7 +2,7 @@
 driver:
   name: vagrant
   network:
-    - ["private_network", {ip: "192.168.33.33"}]
+    - ["private_network", { ip: "192.168.33.33" }]
 
 provisioner:
   name: salt_solo
@@ -18,6 +18,7 @@ provisioner:
     base:
       "*":
         - influxdb
+
 platforms:
   - name: ubuntu-14.04-i386
 
