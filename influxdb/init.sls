@@ -39,10 +39,11 @@ influxdb_init:
   file:
     - managed
     - name: /etc/init.d/influxdb
-    - source: salt://influxdb/files/influxdb.service
+    - source: salt://influxdb/templates/influxdb.service.jinja
     - owner: root
     - group: root
     - mode: 755
+    - template: jinja
 
 influxdb_user:
   user:
