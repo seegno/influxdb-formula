@@ -52,6 +52,14 @@ influxdb_user:
     - shell: /bin/false
     - home: /opt/influxdb
 
+influxdb_log:
+  file:
+    - directory
+    - name: /var/log/influxdb
+    - user: influxdb
+    - group: influxdb
+    - mode: 755
+
 influxdb_start:
   service:
     - running
