@@ -61,6 +61,18 @@ influxdb_log:
     - group: influxdb
     - mode: 755
 
+influxdb_logrotate:
+  file:
+    - managed
+    - name: /etc/logrotate.d/influxdb
+    - source: salt://influxdb/templates/logrotate.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch:
+      - file: influxdb_log
+
 influxdb_start:
   service:
     - running
