@@ -1,25 +1,27 @@
-# Welcome to the InfluxDB configuration file.
+{% from "influxdb/map.jinja" import influxdb with context %}
+
+#, Welcome to the InfluxDB configuration file.
 
 # If hostname (on the OS) doesn't return a name that can be resolved by the other
 # systems in the cluster, you'll have to set the hostname to an IP or something
 # that can be resolved here.
 # hostname = ""
 
-bind-address = "{{ pillar["influxdb"]["bind-address"] }}"
+bind-address = "{{ influxdb["bind-address"] }}"
 
 [logging]
 # logging level can be one of "debug", "info", "warn" or "error"
-level = "{{ pillar["influxdb"]["logging"]["level"] }}"
-file  = "{{ pillar["influxdb"]["logging"]["directory"] }}/influxdb.log"         # stdout to log to standard out
+level = "{{ influxdb["logging"]["level"] }}"
+file  = "{{ influxdb["logging"]["directory"] }}/influxdb.log"         # stdout to log to standard out
 
 # Configure the admin server
 [admin]
-port   = {{ pillar["influxdb"]["admin"]["port"] }} # binding is disabled if the port isn't set
+port   = {{ influxdb["admin"]["port"] }} # binding is disabled if the port isn't set
 assets = "/opt/influxdb/current/admin"
 
 # Configure the http api
 [api]
-port = {{ pillar["influxdb"]["api"]["port"] }} # binding is disabled if the port isn't set
+port = {{ influxdb["api"]["port"] }} # binding is disabled if the port isn't set
 # ssl-port = 8084    # Ssl support is enabled if you set a port and cert
 # ssl-cert = /path/to/cert.pem
 
@@ -46,7 +48,7 @@ enabled = false
 # The raft port should be open between all servers in a cluster.
 # However, this port shouldn't be accessible from the internet.
 
-port = {{ pillar["influxdb"]["raft"]["port"] }}
+port = {{ influxdb["raft"]["port"] }}
 
 # Where the raft logs are stored. The user running InfluxDB will need read/write access.
 dir  = "/opt/influxdb/shared/data/raft"
@@ -75,7 +77,7 @@ write-buffer-size = 10000
 # This port should be reachable between all servers in a cluster.
 # However, this port shouldn't be accessible from the internet.
 
-protobuf_port = {{ pillar["influxdb"]["protobuf"]["port"] }}
+protobuf_port = {{ influxdb["protobuf"]["port"] }}
 
 protobuf_timeout = "2s" # the write timeout on the protobuf conn any duration parseable by time.ParseDuration
 protobuf_heartbeat = "200ms" # the heartbeat interval between the servers. must be parseable by time.ParseDuration
