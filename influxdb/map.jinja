@@ -1,3 +1,4 @@
+# vi: set ft=sls :
 {%
   set package_table = {
     "Ubuntu": {
@@ -16,6 +17,30 @@
     }
   }
 %}
+
+{%
+  set influxdb = {
+    "bind-address" : "0.0.0.0",
+    "logging" : {
+      "level" : "info",
+      "directory": "/var/log/influxdb"
+    },
+    "admin" : {
+      "port" : "8083"
+    },
+    "api" : {
+      "port" : "8086"
+    },
+    "raft" : {
+      "port" : "8090"
+    },
+    "protobuf" : {
+      "port" : "8083"
+    }
+  }
+%}
+
+{% do influxdb.update(salt["pillar.get"]("influxdb")) %}
 
 {% if grains["os"] in package_table %}
   {% set map = package_table[grains["os"]][grains["osarch"]] %}
