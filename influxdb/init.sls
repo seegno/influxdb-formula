@@ -1,4 +1,5 @@
 {% from "influxdb/map.jinja" import map with context %}
+{% from "influxdb/map.jinja" import influxdb with context %}
 
 influxdb_package:
   file:
@@ -56,7 +57,7 @@ influxdb_user:
 influxdb_log:
   file:
     - directory
-    - name: {{ pillar["influxdb"]["logging"]["directory"] }}
+    - name: {{ influxdb["logging"]["directory"] }}
     - user: influxdb
     - group: influxdb
     - mode: 755
