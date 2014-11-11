@@ -36,7 +36,7 @@ influxdb_config:
     - managed
     - name: /etc/influxdb/config.toml
     - source: salt://influxdb/templates/config.toml.jinja
-    - owner: root
+    - user: root
     - group: root
     - mode: 644
     - template: jinja
@@ -46,7 +46,7 @@ influxdb_init:
     - managed
     - name: /etc/init.d/influxdb
     - source: salt://influxdb/templates/influxdb.service.jinja
-    - owner: root
+    - user: root
     - group: root
     - mode: 755
     - template: jinja
