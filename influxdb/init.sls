@@ -1,22 +1,27 @@
 {% from "influxdb/map.jinja" import map with context %}
 {% from "influxdb/map.jinja" import influxdb with context %}
 
+{% if influxdb["version"] is defined %}
+  {% set filename = "influxdb_" + influxdb['version'] + "_" + grains['osarch'] + ".deb" %}
+{% else %}
+  {% set filename = "influxdb_latest" + grains['osarch'] + ".deb" %}
+{% endif %}
+
 influxdb_package:
-  file:
-    - managed
-    - name: /tmp/influxdb.deb
-    - source: http://s3.amazonaws.com/influxdb/{{ map["package"] }}
-    - source_hash: md5={{ map["md5"] }}
+  cmd:
+    - run
+    - name: wget -qO /tmp/{{ filename }} http://s3.amazonaws.com/influxdb/{{ filename }}
+    - unless: test -f /tmp/{{ filename }}
 
 influxdb_install:
   pkg:
     - installed
     - sources:
-      - influxdb: /tmp/influxdb.deb
+      - influxdb: /tmp/{{ filename }}
     - require:
-      - file: influxdb_package
+      - cmd: influxdb_package
     - watch:
-      - file: influxdb_package
+      - cmd: influxdb_package
 
 influxdb_confdir:
   file:
@@ -31,7 +36,7 @@ influxdb_config:
     - managed
     - name: /etc/influxdb/config.toml
     - source: salt://influxdb/templates/config.toml.jinja
-    - owner: root
+    - user: root
     - group: root
     - mode: 644
     - template: jinja
@@ -41,7 +46,7 @@ influxdb_init:
     - managed
     - name: /etc/init.d/influxdb
     - source: salt://influxdb/templates/influxdb.service.jinja
-    - owner: root
+    - user: root
     - group: root
     - mode: 755
     - template: jinja
@@ -81,8 +86,7 @@ influxdb_start:
     - enable: True
     - watch:
       - pkg: influxdb_install
-      - file: influxdb_package
       - file: influxdb_config
     - require:
       - pkg: influxdb_install
-      - file: influxdb_package
+      - file: influxdb_config

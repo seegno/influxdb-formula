@@ -1,24 +1,5 @@
 # vi: set ft=sls :
 {%
-  set package_table = {
-    "Ubuntu": {
-      "amd64": {
-        "package": "influxdb_latest_amd64.deb",
-        "md5": "3c02ef5f9c4aa28eacdc68b230277af3"
-      },
-      "i686": {
-        "package": "influxdb_latest_i686.deb",
-        "md5": "efd0792fba61b6c416321c6319a77f99"
-      },
-      "i386": {
-        "package": "influxdb_latest_i386.deb",
-        "md5": "c011c674fce6dd8880eee31e052ae62b"
-      }
-    }
-  }
-%}
-
-{%
   set influxdb = {
     "bind-address" : "0.0.0.0",
     "logging" : {
@@ -41,7 +22,3 @@
 %}
 
 {% do influxdb.update(salt["pillar.get"]("influxdb")) %}
-
-{% if grains["os"] in package_table %}
-  {% set map = package_table[grains["os"]][grains["osarch"]] %}
-{% endif %}
