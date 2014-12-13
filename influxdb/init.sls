@@ -8,14 +8,12 @@
 {% endif %}
 
 influxdb_package:
-  cmd:
-    - run
+  cmd.run:
     - name: wget -qO /tmp/{{ filename }} http://s3.amazonaws.com/influxdb/{{ filename }}
     - unless: test -f /tmp/{{ filename }}
 
 influxdb_install:
-  pkg:
-    - installed
+  pkg.installed:
     - sources:
       - influxdb: /tmp/{{ filename }}
     - require:
@@ -24,16 +22,14 @@ influxdb_install:
       - cmd: influxdb_package
 
 influxdb_confdir:
-  file:
-    - directory
+  file.directory:
     - name: /etc/influxdb
     - owner: root
     - group: root
     - mode: 755
 
 influxdb_config:
-  file:
-    - managed
+  file.managed:
     - name: /etc/influxdb/config.toml
     - source: salt://influxdb/templates/config.toml.jinja
     - user: root
@@ -42,8 +38,7 @@ influxdb_config:
     - template: jinja
 
 influxdb_init:
-  file:
-    - managed
+  file.managed:
     - name: /etc/init.d/influxdb
     - source: salt://influxdb/templates/influxdb.service.jinja
     - user: root
@@ -52,24 +47,21 @@ influxdb_init:
     - template: jinja
 
 influxdb_user:
-  user:
-    - present
+  user.present:
     - name: influxdb
     - fullname: InfluxDB Service User
     - shell: /bin/false
     - home: /opt/influxdb
 
 influxdb_log:
-  file:
-    - directory
+  file.directory:
     - name: {{ influxdb["logging"]["directory"] }}
     - user: influxdb
     - group: influxdb
     - mode: 755
 
 influxdb_logrotate:
-  file:
-    - managed
+  file.managed:
     - name: /etc/logrotate.d/influxdb
     - source: salt://influxdb/templates/logrotate.conf.jinja
     - template: jinja
@@ -80,8 +72,7 @@ influxdb_logrotate:
       - file: influxdb_log
 
 influxdb_start:
-  service:
-    - running
+  service.running:
     - name: influxdb
     - enable: True
     - watch:
