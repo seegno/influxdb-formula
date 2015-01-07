@@ -1,9 +1,16 @@
 cli_dependencies:
   pkg.installed:
     - pkgs:
+{% if grains['os_family'] == 'Debian' or 'Ubuntu' %}
       - build-essential
-      - ruby
       - ruby-dev
+{% elif grains['os_family'] == 'RedHat' %}
+      - gcc
+      - make
+      - automake
+      - ruby-devel
+{% endif %}
+      - ruby
 
 cli_gem:
   gem.installed:

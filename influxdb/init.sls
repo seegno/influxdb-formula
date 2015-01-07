@@ -1,10 +1,18 @@
 {% from "influxdb/map.jinja" import map with context %}
 {% from "influxdb/map.jinja" import influxdb with context %}
 
-{% if influxdb["version"] is defined %}
+{% if grains['os_family'] == 'Debian' or 'Ubuntu' %}
+{% if influxdb['version'] is defined %}
   {% set filename = "influxdb_" + influxdb['version'] + "_" + grains['osarch'] + ".deb" %}
 {% else %}
   {% set filename = "influxdb_latest" + grains['osarch'] + ".deb" %}
+{% endif %}
+{% elif grains['os_family'] == 'RedHat' %}
+{% if influxdb['version'] is defined %}
+  {% set filename = "influxdb-" + influxdb['version'] + "-" + grains['osarch'] + ".rpm" %}
+{% else %}
+  {% set filename = "influxdb-latest-1" + grains['osarch'] + ".rpm" %}
+{% endif %}
 {% endif %}
 
 influxdb_package:
