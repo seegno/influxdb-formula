@@ -1,7 +1,7 @@
 {% from "influxdb/map.jinja" import map with context %}
 {% from "influxdb/map.jinja" import influxdb with context %}
 
-{% if grains['os_family'] == 'Debian' or 'Ubuntu' %}
+{% if grains['os_family'] == 'Debian' %}
 {% if influxdb['version'] is defined %}
   {% set filename = "influxdb_" + influxdb['version'] + "_" + grains['osarch'] + ".deb" %}
 {% else %}
