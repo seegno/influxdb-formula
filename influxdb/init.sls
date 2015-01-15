@@ -9,9 +9,9 @@
 {% endif %}
 {% elif grains['os_family'] == 'RedHat' %}
 {% if influxdb['version'] is defined %}
-  {% set filename = "influxdb-" + influxdb['version'] + "-" + grains['osarch'] + ".rpm" %}
+  {% set filename = "influxdb-" + influxdb['version'] + "-1." + grains['osarch'] + ".rpm" %}
 {% else %}
-  {% set filename = "influxdb-latest-1" + grains['osarch'] + ".rpm" %}
+  {% set filename = "influxdb-latest-1." + grains['osarch'] + ".rpm" %}
 {% endif %}
 {% endif %}
 
