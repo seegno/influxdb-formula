@@ -1,7 +1,7 @@
 cli_dependencies:
   pkg.installed:
     - pkgs:
-{% if grains['os_family'] == 'Debian' or 'Ubuntu' %}
+{% if grains['os_family'] == 'Debian' %}
       - build-essential
       - ruby-dev
 {% elif grains['os_family'] == 'RedHat' %}
