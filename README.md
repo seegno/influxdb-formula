@@ -1,5 +1,7 @@
 # InfluxDB
 
+[![build status][travis-image]][travis-url]
+
 Install and configure the [InfluxDB](http://influxdb.com/) service.
 
 
@@ -38,3 +40,6 @@ kitchen verify
 ## Author
 
 [Alfredo Palhares](https://github.com/masterkorp) \<afp@seegno.com\>
+
+[travis-image]: https://travis-ci.org/seegno/influxdb-formula.svg
+[travis-url]: https://travis-ci.org/seegno/influxdb-formula
