@@ -1,0 +1,9 @@
+file_client: local
+file_roots:
+  base:
+    - /tmp/srv/salt/
+log_level: debug
+pillar_roots:
+  base:
+    - /tmp/srv/pillar
+state_top: top.sls
