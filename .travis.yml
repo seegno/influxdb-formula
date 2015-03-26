@@ -1,0 +1,19 @@
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y curl
+  - curl -L https://bootstrap.saltstack.com | sudo sh --
+  - salt-call --versions-report
+  - mkdir -p /etc/salt
+  - mkdir -p /tmp/srv/pillar
+  - mkdir -p /tmp/srv/salt
+  - cp -r influxdb /tmp/srv/salt/influxdb
+  - cp pillar.example /tmp/srv/pillar/top.sls
+  - sudo cp .travis.d/minion /etc/salt/minion
+
+script: sudo salt-call --local --retcode-passthrough state.sls influxdb -l debug --log-file=/tmp/salt-minion.log
+
+git:
+  depth: 10
+
+cache:
+  apt: true
