@@ -1,15 +1,12 @@
 # vi: set ft=yaml :
 influxdb:
-  version: 0.8.5
+  version: 0.9.5.1
   bind-address: 0.0.0.0
   logging:
-    level: info
     directory: /var/log/influxdb
   admin:
     port: 8083
-  api:
+  meta:
+    port: 8088
+  http:
     port: 8086
-  raft:
-    port: 8090
-  protobuf:
-    port: 8099

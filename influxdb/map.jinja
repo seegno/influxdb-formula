@@ -2,21 +2,18 @@
 {%
   set influxdb = {
     "bind-address" : "0.0.0.0",
+    "influxdb_data": "/var/lib/influxdb",
     "logging" : {
-      "level" : "info",
       "directory": "/var/log/influxdb"
     },
     "admin" : {
       "port" : "8083"
     },
-    "api" : {
+    "meta" : {
+      "port" : "8088"
+    },
+    "http" : {
       "port" : "8086"
-    },
-    "raft" : {
-      "port" : "8090"
-    },
-    "protobuf" : {
-      "port" : "8083"
     }
   }
 %}

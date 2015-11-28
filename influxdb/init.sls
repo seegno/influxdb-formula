@@ -38,34 +38,18 @@ influxdb_confdir:
 
 influxdb_config:
   file.managed:
-    - name: /etc/influxdb/config.toml
-    - source: salt://influxdb/templates/config.toml.jinja
+    - name: /etc/influxdb/influxdb.conf
+    - source: salt://influxdb/templates/influxdb.conf.jinja
     - user: root
     - group: root
     - mode: 644
     - template: jinja
 
-influxdb_init:
-  file.managed:
-    - name: /etc/init.d/influxdb
-    - source: salt://influxdb/templates/influxdb.service.jinja
-    - user: root
-    - group: root
-    - mode: 755
-    - template: jinja
-
-influxdb_user:
-  user.present:
-    - name: influxdb
-    - fullname: InfluxDB Service User
-    - shell: /bin/false
-    - home: /opt/influxdb
-
 influxdb_log:
   file.directory:
     - name: {{ influxdb["logging"]["directory"] }}
-    - user: influxdb
-    - group: influxdb
+    - user: root
+    - group: root
     - mode: 755
 
 influxdb_logrotate:
